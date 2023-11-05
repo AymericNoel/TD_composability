@@ -1,0 +1,65 @@
+Ex1 & Ex2:
+Created an approve function to approve sending tokens from my address to the evaluator contract
+Added StudentToken.sol, changed Deployment.sol script to only deploy the new Contract
+Ran "forge script script/Deployment.sol --rpc-url $GOERLI_RPC_URL --broadcast -vvvv" to deploy contract
+new address: 0x18F40E498C2b02557BFf8331926f19185B76440E
+
+Registering the StudentToken by running:
+cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "registerStudentToken(address)" 0x18F40E498C2b02557BFf8331926f19185B76440E
+cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x18F40E498C2b02557BFf8331926f19185B76440E "approveEvaluator(address, uint256)" 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE 10000000
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex2_mintStudentToken()"
+
+Ex3
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x18F40E498C2b02557BFf8331926f19185B76440E "transfer(address, uint256)" 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE 20000000
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex3_mintEvaluatorToken()"
+On Metamask, after importing EVAL tokens, I can see 30 EVAL in my wallet.
+Sent 30 EVAL tokens to my smart contract address
+
+Ex4
+RewardToken contract address: 0x62948AC675DdC685Fd3813A6F5f45B50FD9405C8
+EvaluatorToken contract address: 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE
+Created swapRewardToken function that uses UniSwap V3 smart contract to swap RTK with EVAL
+
+Tried to deploy smart contract but keep getting:
+
+Error (6275): Source "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol" not found: File not found. Searched the following locations: "/Users/domidanke/Uni/Vinci/monnaies/TD_composability".
+ --> src/StudentToken.sol:7:1:
+  |
+7 | import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
+
+With F12, I can go into the definition of ISwapRouter etc. but the compiler can't find it.
+Tried for hours to solve this issue but could not find a way.
+
+Theoretically:
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x18F40E498C2b02557BFf8331926f19185B76440E "swapRewardToken(address, address, uint256, uint256)" 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE 0x62948AC675DdC685Fd3813A6F5f45B50FD9405C8 5, 10
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex4_checkRewardTokenBalance()"
+
+Ex5
+Created approveRewardToken function to allow RewardToken transfer from my address to Evaluator smart contract.
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x18F40E498C2b02557BFf8331926f19185B76440E "approveRewardToken(address, uint256)" 0x62948AC675DdC685Fd3813A6F5f45B50FD9405C8 10000000
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex5_checkRewardTokenBalance()"
+
+Ex6
+Created createLiquidityPool function
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x18F40E498C2b02557BFf8331926f19185B76440E "createLiquidityPool(uint256, uint256, int24, int24)" 10000 10 50 40
+
+Ex7
+Created StudentNft file and added code
+Running forge script script/Deployment.sol --rpc-url $GOERLI_RPC_URL --broadcast -vvvv
+-> Nft address: 0x30c19f31abF9FACb5AD74634515e118014dda0AD
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "registerStudentNFT(address)" 0x30c19f31abF9FACb5AD74634515e118014dda0AD
+
+Ex8
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex8_mintNFT()"
+
+Ex9
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex9_burnNft()"
+
+Ex10
+Using this link: https://sourcify.dev/#/verifier
+Import from Etherscan:
+address: 0x18F40E498C2b02557BFf8331926f19185B76440E
+chain: Ethereum Testnet Goerli (5)
+
+Ex11
+Running cast send --private-key $PRIVATE_KEY --rpc-url $GOERLI_RPC_URL 0x5cd93e3B0afBF71C9C84A7574a5023B4998B97BE "ex11_unlock_ethers()"
